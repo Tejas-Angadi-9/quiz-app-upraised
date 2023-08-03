@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Questions from './pages/Questions'
+import Result from './pages/Result'
+import { data } from './data'
 
-function App() {
+const App = () => {
+
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showFinalResults, setshowFinalResults] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='font-nunito'>
+
+
+      <Routes>
+        <Route path='/' element={<Home />} />
+
+        <Route path='/questions' element={
+          <Questions
+            currentQuestion={currentQuestion}
+            setCurrentQuestion={setCurrentQuestion}
+            questions={data}
+            score={score}
+            setScore={setScore}
+            showFinalResults={showFinalResults}
+            setshowFinalResults={setshowFinalResults} />
+        } />
+
+        <Route path='/result' element={<Result />} />
+      </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
